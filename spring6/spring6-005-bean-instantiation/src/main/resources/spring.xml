@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- Spring提供的實例化方式 -->
+    <!-- 第一種：在spring配置文件中直接配置類全路徑，Spring會自動調用該類的無參數構造方法來實例化Bean -->
+    <bean id="sb" class="com.powernode.spring6.bean.SpringBean"/>
+    <!-- 第二種：通過簡單工廠模式。需要在Spring配置文件中告訴Spring框架，調用哪個類的哪個方法獲取Bean -->
+    <!-- factory-method 屬性指定的是工廠類當中的靜態方法。也就是告訴Spring框架，調用這個方法可以獲取Bean -->
+    <bean id="star" class="com.powernode.spring6.bean.StarFactory" factory-method="get"/>
+    <!-- 第三種：通過工廠方法模式。通過 factory-bean屬性 + factory-method屬性來共同完成 -->
+    <!-- 告訴Spring框架，調用哪個物件的哪個方法來獲取Bean -->
+    <!-- GunFactory實際上就是一個FactoryBean -->
+    <bean id="gunFactory" class="com.powernode.spring6.bean.GunFactory"/>
+    <!-- 以下的配置很關鍵，factory-bean屬性告訴Spring調用哪個物件，factory-method告訴Spring調用該物件的哪個方法 -->
+    <bean id="gun" factory-bean="gunFactory" factory-method="get" />
+    <!-- 第四種：通過FactoryBean介面來實現，這種方式實際上就是第三種方式的簡化 -->
+    <!-- 由於編寫的類實現了FactoryBean介面，所以這個類是一個特殊的類，不需要再手動指定 factory-bean、factory-method -->
+    <!-- 通過一個特殊的Bean：工廠Bean。來返回一個普通的Bean Person物件 -->
+    <!-- 通過FactoryBean這個工廠Bean主要是想對普通Bean進行加工處理 -->
+    <bean id="person" class="com.powernode.spring6.bean.PersonFactoryBean"/>
+
+
+    <!--這種方式只能獲取系統當前時間，這種時間不能作為生日。 -->
+    <bean id="nowTime" class="java.util.Date"/>
+
+    <bean id="student" class="com.powernode.spring6.bean.Student">
+        <!--把日期類型當做簡單類型。 -->
+<!--        <property name="birth" value="Mon Oct 10 14:30:26 CST 2022"/>-->
+        <!--把日期類型當做非簡單類型。 -->
+        <property name="birth" ref="nowTime"/>
+    </bean>
+
+    <!-- 通過工廠Bean：DateFactoryBean 來返回普通Bean：java.util.Date -->
+    <bean id="date" class="com.powernode.spring6.bean.DateFactoryBean">
+        <constructor-arg index="0" value="1998-05-10"/>
+    </bean>
+
+    <bean id="studentBean" class="com.powernode.spring6.bean.Student">
+        <property name="birth" ref="date"/>
+    </bean>
+
+</beans>

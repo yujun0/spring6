@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+                           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!--組件掃描-->
+    <context:component-scan base-package="com.powernode.spring6.service"/>
+
+    <!--開啟aspectj的自動代理-->
+    <!--spring容器在掃描類的時候，查看該類上是否有@Aspect註解，如果有，則給這個類生成代理物件(Proxy)。 -->
+    <!--
+        proxy-target-class="true"  表示強制使用CGLIB動態代理
+        proxy-target-class="false" 這是默認值，表示介面使用JDK動態代理，反之使用CGLIB動態代理。
+     -->
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
+
+</beans>

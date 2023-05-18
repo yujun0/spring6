@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="xxxx" class="com.powernode.spring6.dao.UserDao"/>
+
+    <bean id="yyyy" class="com.powernode.spring6.dao.VipDao"/>
+
+    <bean id="csBean3" class="com.powernode.spring6.service.CustomerService">
+        <!-- 不指定下標，也不指定參數名，讓spring自己做類型匹配吧。 -->
+        <!-- 這種方式實際上是根據類型進行注入的。 spring會自動根據類型來判斷把ref注入給哪個參數。 -->
+        <constructor-arg ref="yyyy"/>
+        <constructor-arg ref="xxxx"/>
+    </bean>
+
+    <bean id="csBean2" class="com.powernode.spring6.service.CustomerService">
+        <!-- 根據構造方法參數的名字進行注入。-->
+        <constructor-arg name="vipDao" ref="yyyy"/>
+        <constructor-arg name="userDao" ref="xxxx"/>
+    </bean>
+
+    <bean id="csBean" class="com.powernode.spring6.service.CustomerService">
+        <!--構造注入-->
+        <!--
+            index屬性指定參數下標，第一個參數是0，第二個參數是1，第三個參數是2，以此類推。
+            ref屬性用來指定注入的bean的id
+        -->
+        <!--指定構造方法的第一個參數，下標是0-->
+        <constructor-arg index="0" ref="xxxx"/>
+        <!--指定構造方法的第二個參數，下標是1-->
+        <constructor-arg index="1" ref="yyyy"/>
+    </bean>
+
+</beans>

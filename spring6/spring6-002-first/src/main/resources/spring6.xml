@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- 這就是Spring的配置文件 -->
+    <!-- IDEA工具為我們提供了這個文件的模板，一定要使用這個模板來創建 -->
+    <!-- 這個文件名不一定叫做spring.xml，可以是其它名字 -->
+    <!-- 這個文件最好是放在class路徑當中，方便後期的移植 -->
+    <!-- 放在resources根目錄下，就相當於是放到了class的root路徑下 -->
+    <!-- 配置bean，這樣spring才可以幫助我們管理這個物件 -->
+    <!--
+        bean標籤的兩個重要屬性：
+            id：是這個bean的身份證號，不能重複，是唯一的標識。
+            class：必須填寫class的全路徑，全限定類名。 （帶包名的class名）
+    -->
+    <bean id="userBean" class="com.powernode.spring6.bean.User"/>
+
+    <!--
+    org.springframework.beans.factory.parsing.BeanDefinitionParsingException:
+    Configuration problem: Bean name 'userBean' is already used in this <beans> element
+    Offending resource: class path resource [spring6.xml]
+    -->
+    <!-- <bean id="userBean" class="com.powernode.spring6.bean.Vip"/> -->
+
+    <!-- 配置其他的bean -->
+    <bean id="userDaoBean" class="com.powernode.spring6.dao.UserDaoImplForMySQL"/>
+
+    <!-- 配置java.util.Date Bean -->
+    <bean id="nowTime" class="java.util.Date"/>
+
+</beans>

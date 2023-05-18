@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--給Spring框架指定要掃描哪些包中的類-->
+<!--    <context:component-scan base-package="com.powernode.spring6.bean"/>-->
+
+    <!--多個包，使用逗號隔開。 -->
+<!--    <context:component-scan base-package="com.powernode.spring6.bean, com.powernode.spring6.dao"/>-->
+
+    <!--多個包，也可以指定這多個包共同的父包，但是這肯定要犧牲一部分效能，因為掃描範圍變大 -->
+    <context:component-scan base-package="com.powernode.spring6"/>
+
+</beans>

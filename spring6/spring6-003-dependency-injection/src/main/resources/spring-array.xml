@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="w1" class="com.powernode.spring6.bean.Woman">
+        <property name="name" value="小花"/>
+    </bean>
+
+    <bean id="w2" class="com.powernode.spring6.bean.Woman">
+        <property name="name" value="小亮"/>
+    </bean>
+
+    <bean id="w3" class="com.powernode.spring6.bean.Woman">
+        <property name="name" value="小明"/>
+    </bean>
+
+    <bean id="yuQian" class="com.powernode.spring6.bean.QianDaYe">
+
+        <!-- 這個數組屬性當中的元素類型是String簡單類型 -->
+        <property name="aiHaos">
+            <array>
+                <value>抽煙</value>
+                <value>喝酒</value>
+                <value>燙頭</value>
+            </array>
+        </property>
+
+        <!-- 這個數組當中的類型就不是簡單類型了 -->
+        <property name="womens">
+            <array>
+                <ref bean="w1"/>
+                <ref bean="w1"/>
+                <ref bean="w2"/>
+                <ref bean="w3"/>
+            </array>
+        </property>
+    </bean>
+
+</beans>

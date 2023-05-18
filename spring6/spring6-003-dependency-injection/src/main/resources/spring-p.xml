@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--
+            第一步：在spring的配置文件頭部添加p命名空間。 xmlns:p="http://www.springframework.org/schema/p"
+            第二步：使用 p:屬性名 = "屬性值"
+        -->
+    <bean id="dogBean" class="com.powernode.spring6.bean.Dog" p:name="Lisa" p:age="27" p:birth-ref="birthBean"/>
+
+    <!-- 這裡獲取的是當前系統時間 -->
+    <bean id="birthBean" class="java.util.Date"/>
+</beans>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--
+        第一種解決方案：
+            use-default-filters="false"
+            如果這個屬性是false，表示com.powernode.spring6.bean2包下所有的帶有聲明Bean的註解全部失效。
+            @Component @Controller @Service @Repository全部失效。
+    -->
+<!--    <context:component-scan base-package="com.powernode.spring6.bean2" use-default-filters="false">-->
+        <!-- 只有@Repository @Service 被包含進來，生效。 -->
+<!--        <context:include-filter type="annotation" expression="org.springframework.stereotype.Repository"/>-->
+<!--        <context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>-->
+<!--    </context:component-scan>-->
+
+    <!--
+        第二種解決方案：
+            use-default-filters="true"
+            如果這個屬性的值是true，表示com.powernode.spring6.bean2下的所有的帶有聲明Bean的註解全部生效。
+            use-default-filters="true" 默認值就是true，不用寫。
+    -->
+    <context:component-scan base-package="com.powernode.spring6.bean2">
+        <!-- @Controller註解失效 -->
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+
+
+</beans>

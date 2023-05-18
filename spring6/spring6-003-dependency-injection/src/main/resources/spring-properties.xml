@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--
+            引入外部的properties文件
+                第一步：引入context命名空間。
+                第二步：使用標籤context:property-placeholder的location屬性來指定屬性配置文件的路徑。
+                        location默認從類的根路徑下開始加載資源。
+    -->
+    <context:property-placeholder location="jdbc.properties"/>
+
+    <!-- 配置數據源 -->
+    <bean id="datasource" class="com.powernode.spring6.jdbc.MyDataSource">
+        <!-- 怎麼取值呢？第三步：{key} -->
+        <property name="driver" value="${jdbc.driverClass}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+<!-- 系統會優先取值系統變量，所以${username}是Windows當前使用者，Lin -->
+<!--        <property name="username" value="${username}"/>-->
+        <property name="password" value="${jdbc.password}"/>
+    </bean>
+
+</beans>

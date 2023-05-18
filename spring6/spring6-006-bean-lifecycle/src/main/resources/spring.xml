@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- 配置Bean後處理器。 -->
+    <!-- 注意：這個Bean後處理器將作用於整個配置文件中所有的bean。 -->
+    <bean class="com.powernode.spring6.bean.LogBeanPostProcessor"/>
+
+    <!--需要手動指定初始化方法，和銷毀方法。 -->
+    <bean id="user" class="com.powernode.spring6.bean.User" init-method="initBean" destroy-method="destroyBean" scope="prototype">
+        <property name="name" value="Lisa"/>
+    </bean>
+
+<!--    <bean id="vip" class="com.powernode.spring6.bean.Vip"/>-->
+
+</beans>

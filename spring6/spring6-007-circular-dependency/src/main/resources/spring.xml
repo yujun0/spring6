@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--singleton + setter模式下的循環依賴是沒有任何問題的。 -->
+    <!--singleton表示在整個Spring容器當中是單例的，獨一無二的物件。 -->
+    <!--
+        在singleton + setter模式下，為什麼循環依賴不會出現問題，Spring是如何應對的？
+            主要的原因是，在這種模式下Spring對Bean的管理主要分為清晰的兩個階段：
+                第一個階段：在Spring容器加載的時候，實例化Bean，只要其中任意一個Bean實例化之後，馬上進行 “曝光”【不等屬性賦值就曝光】
+                第二個階段：Bean“曝光”之後，再進行屬性的賦值(調用set方法。)。
+
+            核心解決方案是：實例化物件 和 物件的屬性賦值 分為兩個階段來完成的。
+
+        **注意：只有在scope是singleton的情況下，Bean才會採取提前“曝光”的措施。
+    -->
+        <bean id="husbandBean" class="com.powernode.spring6.bean.Husband" scope="singleton">
+            <property name="name" value="Mike"/>
+            <property name="wife" ref="wifeBean"/>
+        </bean>
+
+        <bean id="wifeBean" class="com.powernode.spring6.bean.Wife" scope="singleton">
+            <property name="name" value="Susan"/>
+            <property name="husband" ref="husbandBean"/>
+        </bean>
+
+
+    <!-- 在prototype + setter模式下的循環依賴，存在問題，會出現異常！ -->
+    <!-- BeanCurrentlyInCreationException 當前的Bean正在處於創建中異常.... -->
+    <!-- 注意：當兩個bean的scope都是prototype的時候，才會出現異常。如果其中任意一個是singleton的，就不會出現異常。 -->
+<!--    <bean id="husbandBean" class="com.powernode.spring6.bean.Husband" scope="prototype">-->
+<!--        <property name="name" value="Mike"/>-->
+<!--        <property name="wife" ref="wifeBean"/>-->
+<!--    </bean>-->
+
+<!--    <bean id="wifeBean" class="com.powernode.spring6.bean.Wife" scope="prototype">-->
+<!--        <property name="name" value="Susan"/>-->
+<!--        <property name="husband" ref="husbandBean"/>-->
+<!--    </bean>-->
+
+</beans>
